@@ -10,7 +10,7 @@ const AboutSection: React.FC = () => {
   return (
     <section
       id="about"
-      className="relative z-10 mx-auto flex max-w-6xl flex-col gap-10 pt-10 md:grid md:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] md:gap-16"
+      className="relative z-10  mx-auto flex max-w-6xl flex-col gap-10 pt-10 md:grid md:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] md:gap-16"
     >
       <div className="space-y-6">
         <Badge variant="outline">Intro</Badge>
