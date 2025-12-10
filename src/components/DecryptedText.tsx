@@ -1,79 +1,82 @@
+// src/components/DecryptedText.tsx
+import React, { useLayoutEffect, useRef } from "react";
+import { gsap, ScrollTrigger } from "../utils/gsapSetup";
 
-import React, { useEffect, useRef, useState } from 'react'
-
-export interface DecryptedTextProps {
-  text: string
-  className?: string
-  animateOnHover?: boolean
+interface DecryptedTextProps {
+  text: string;
+  className?: string;
+  delay?: number; // extra delay after enter, if needed
 }
-
-const CHARS = '#_X<>/|{}$%?*+-'
-
-const randomChar = (): string =>
-  CHARS[Math.floor(Math.random() * CHARS.length)] ?? '#'
 
 const DecryptedText: React.FC<DecryptedTextProps> = ({
   text,
   className,
-  animateOnHover = false,
+  delay = 0,
 }) => {
-  const [display, setDisplay] = useState<string>(text)
-  const [hovered, setHovered] = useState<boolean>(false)
-  const frameRef = useRef<number | null>(null)
+  const ref = useRef<HTMLSpanElement | null>(null);
 
-  const runAnimation = (): void => {
-    let frame = 0
-    const maxFrames = 22
-    const length = text.length
+  useLayoutEffect(() => {
+    const el = ref.current;
+    if (!el) return;
 
-    const animate = () => {
-      frame += 1
-      const progress = Math.min(frame / maxFrames, 1)
-      const reveal = Math.floor(progress * length)
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-=<>?";
+    let frame = 0;
+    const totalFrames = 25;
+    let animationStarted = false;
 
-      const chars = text
-        .split('')
-        .map((ch, i) => (i < reveal ? ch : randomChar()))
-        .join('')
+    const runDecrypt = () => {
+      if (animationStarted) return;
+      animationStarted = true;
 
-      setDisplay(chars)
+      const target = text;
+      const length = target.length;
 
-      if (progress < 1) {
-        frameRef.current = window.requestAnimationFrame(animate)
-      }
-    }
+      gsap.ticker.add(function update() {
+        frame++;
 
-    frameRef.current = window.requestAnimationFrame(animate)
-  }
+        const output = target
+          .split("")
+          .map((letter, i) => {
+            // small per-character delay
+            const progress = frame - i * 1.2;
+            if (progress <= 0) return "";
+            if (progress >= totalFrames) return letter;
+            return chars[Math.floor(Math.random() * chars.length)];
+          })
+          .join("");
 
-  useEffect(() => {
-    if (!animateOnHover) {
-      runAnimation()
-    }
+        el.textContent = output;
 
-    return () => {
-      if (frameRef.current !== null) {
-        window.cancelAnimationFrame(frameRef.current)
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [text, animateOnHover])
+        if (frame >= totalFrames + length * 1.2) {
+          el.textContent = target;
+          gsap.ticker.remove(update);
+        }
+      });
+    };
 
-  useEffect(() => {
-    if (!animateOnHover || !hovered) return
-    runAnimation()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [hovered])
+    const ctx = gsap.context(() => {
+      ScrollTrigger.create({
+        trigger: el,
+        start: "top 80%", // when heading / text is near viewport
+        once: true,       // only animate first time
+        onEnter: () => {
+          if (delay > 0) {
+            gsap.delayedCall(delay, runDecrypt);
+          } else {
+            runDecrypt();
+          }
+        },
+      });
+    }, el);
+
+    return () => ctx.revert();
+  }, [text, delay]);
 
   return (
-    <span
-      className={className}
-      onMouseEnter={animateOnHover ? () => setHovered(true) : undefined}
-      onMouseLeave={animateOnHover ? () => setHovered(false) : undefined}
-    >
-      {display}
+    <span ref={ref} className={className}>
+      {text}
     </span>
-  )
-}
+  );
+};
 
-export default DecryptedText
+export default DecryptedText;
