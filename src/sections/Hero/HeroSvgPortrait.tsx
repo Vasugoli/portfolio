@@ -182,14 +182,15 @@ const HeroSvgPortrait: React.FC<HeroSvgPortraitProps> = ({ navShellRef }) => {
             ref={subtitleRef}
             className="mt-3 text-[11px] font-mono uppercase tracking-[0.35em] text-slate-400"
           >
-            FRONTEND · MOTION · TYPE-SAFE
+            {/* WEB DEV · MOTION · TYPE-SAFE */}
+            DESIGN × CODE × MOTION
           </p>
         </div>
       </div>
 
       <div
         ref={scrollRef}
-        className="pointer-events-none absolute bottom-10 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 text-[11px] font-mono text-slate-400"
+        className="pointer-events-none absolute bottom-12 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 text-[11px] font-mono text-slate-400"
       >
         <button
           type="button"
