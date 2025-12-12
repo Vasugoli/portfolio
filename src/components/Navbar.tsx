@@ -45,7 +45,7 @@ const Navbar: React.FC<NavbarProps> = ({ logoRef, linksRef, shellRef }) => {
             CONTACT
           </a>
           <a
-            href="https://drive.google.com/your-resume-link"
+            href="https://drive.google.com/file/d/15oWhJgEg6rHOzpm18cxHFtRme4AT23_K/view?usp=sharing"
             target="_blank"
             rel="noopener noreferrer"
             className="rounded-full border border-cyber-cyan/40 bg-cyber-cyan/10 px-3 py-1 text-[10px] text-cyber-cyan transition hover:bg-cyber-cyan/20 hover:text-cyan-200"
