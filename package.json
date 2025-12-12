@@ -1,5 +1,6 @@
 {
   "name": "portfolio",
+  "homepage": "https://vasugoli.github.io/portfolio/",
   "version": "0.0.0",
   "private": true,
   "type": "module",
