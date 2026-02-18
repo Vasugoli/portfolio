@@ -119,7 +119,7 @@ const ContactSection: React.FC = () => {
 							<span>LinkedIn</span>
 						</a>
 					</Button>
-          <Button
+          			<Button
 						asChild
 						className='border-slate-700/80 bg-slate-900/70 text-slate-100 hover:border-cyber-cyan/50 hover:bg-slate-900'>
 						<a

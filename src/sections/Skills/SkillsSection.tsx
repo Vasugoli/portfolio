@@ -14,32 +14,32 @@ export interface Skill {
 
 const skills: Skill[] = [
 	{
-		category: "Frontend",
+		category: "Languages",
 		items: [
-			"React",
+			"JavaScript",
 			"TypeScript",
-			"Next.js",
-			"Tailwind CSS",
-			"HTML5",
-			"CSS3",
+			"Python",
+			"Java",
+			"C++",
+			"C",
 		],
 		icon: "⚛️",
 	},
 	{
-		category: "Backend",
-		items: ["Node.js", "Flask", "REST APIs", "MongoDB", "Express"],
+		category: "Frameworks",
+		items: ["React", "Next.js", "Node.js", "MongoDB", "Express"],
 		icon: "🔧",
 	},
 	{
-		category: "Animation",
-		items: ["GSAP", "Framer Motion", "CSS Animations", "ScrollTrigger"],
-		icon: "✨",
-	},
-	{
-		category: "Tools & Others",
-		items: ["Git", "Vite", "npm", "Figma", "VS Code","Neovim","Linux"],
+		category: "Tools",
+		items: ["Git", "Vite", "npm", "VS Code","Neovim"],
 		icon: "🛠️",
 	},
+	{
+		category: "Others",
+		items: ["Docker","Linux"],
+		icon: "✨",
+	}
 ];
 
 const SkillsSection: React.FC = () => {
